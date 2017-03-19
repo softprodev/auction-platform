@@ -22,7 +22,7 @@ class FormContainer extends Component {
 	}
 
 	componentDidMount() {
-	
+
 	}
 
 	handleThing1(e) {
@@ -57,7 +57,7 @@ class FormContainer extends Component {
 		var ETHEREUM_CLIENT = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
 
 		var smartContractABI = [{"constant":false,"inputs":[{"name":"contractId","type":"uint256"}],"name":"getBids","outputs":[{"name":"","type":"bytes32[]"},{"name":"","type":"address[]"},{"name":"","type":"uint256[]"},{"name":"","type":"uint256[]"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_asset","type":"bytes32"},{"name":"_quantity","type":"uint256"},{"name":"_targetPrice","type":"uint256"},{"name":"_targetTime","type":"uint256"}],"name":"addContract","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"contracts","outputs":[{"name":"contractId","type":"uint256"},{"name":"asset","type":"bytes32"},{"name":"quantity","type":"uint256"},{"name":"targetPrice","type":"uint256"},{"name":"targetTime","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getContracts","outputs":[{"name":"","type":"uint256[]"},{"name":"","type":"bytes32[]"},{"name":"","type":"uint256[]"},{"name":"","type":"uint256[]"},{"name":"","type":"uint256[]"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"cid","type":"uint256"},{"name":"_supplier","type":"bytes32"},{"name":"_price","type":"uint256"},{"name":"_bidTime","type":"uint256"}],"name":"bid","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"}]
-		var smartContractAddress = '0xd178648ba2b0a5f19b2829569311e201d6b6ef90'
+		var smartContractAddress = '0x7b0d0c14d2de3ffd5f59f4245026fc40098fae72'
 		var smartContract = ETHEREUM_CLIENT.eth.contract(smartContractABI).at(smartContractAddress)
 
 		const formPayload = {
@@ -70,6 +70,7 @@ class FormContainer extends Component {
 
 		console.log('Send this in a POST request:', formPayload);
 		this.handleClearForm(e);
+		window.location.reload();
 	}
 	render() {
 		return (
@@ -77,37 +78,31 @@ class FormContainer extends Component {
 				<h5>CONTRACT CREATION FORM</h5>
 				<p>
 				<SingleInput
-					className="inputField"
+					className="inputField1"
 					inputType={'text'}
 					title={'Asset   '}
 					name={'name'}
 					controlFunc={this.handleThing1}
 					content={this.state.thing1}
 					placeholder={'Asset'} />
-				</p>
-				<p>
 				<SingleInput
-					className="inputfield"
+					className="inputfield2"
 					inputType={'number'}
 					title={'Quantity   '}
 					name={'name'}
 					controlFunc={this.handleThing2}
 					content={this.state.thing2}
 					placeholder={'Quantity'} />
-				</p>
-				<p>
 				<SingleInput
-					className="inputfield"
+					className="inputfield3"
 					inputType={'number'}
 					title={'Target Price   '}
 					name={'name'}
 					controlFunc={this.handleThing3}
 					content={this.state.thing3}
 					placeholder={'Target Price'} />
-				</p>
-				<p>
 				<SingleInput
-					className="inputfield"
+					className="inputfield4"
 					inputType={'number'}
 					title={'Target Time   '}
 					name={'name'}
@@ -120,8 +115,8 @@ class FormContainer extends Component {
 					className="submitButton"
 					value="Submit"/>
 				<button
-					className="clear"
-					onClick={this.handleClearForm}>Clear</button>
+					className="btn btn-link float-left"
+					onClick={this.handleClearForm}>Clear form</button>
 			</form>
 		);
 	}

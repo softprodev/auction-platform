@@ -1,11 +1,11 @@
 .App {
   text-align: left;
-  font-family: 'Montserrat', sans-serif;
 }
 
-@font-face {
-    font-family: 'Montserrat', sans-serif;
-}
+/*@font-face {
+    font-family: 'customfont';
+    src: url('/Users/gillianchu/Desktop/BlockchainExplore/ethereum/smartcontractui/src/assets/css/customfont.ttf') format('truetype');
+}*/
 
 .App-logo {
 /*  animation: App-logo-spin infinite 20s linear;
@@ -21,6 +21,7 @@
   height: 60px;
   padding: 5px;
   color: #0B0B85;
+  font-family: 'arial';
 }
 
 td {
@@ -46,14 +47,14 @@ td {
 
 .left {
   width: 50%;
-  height: 50%%;
+  height: 100%;
   text-align: center;
   margin-left: auto;
 }
 
 .formLeft {
   width: 40%;
-  height: 39%;
+  height: 70%;
   position: absolute;
   left: 25%;
   top: 25%;
@@ -143,64 +144,13 @@ input[type=submit],
   background-color: #7a9aca;
 }
 
-.container:hover {
-  background-color: #6789BB;
-}
-
-.inputField {
-  margin-top: 5px;
+.inputField1 {
+  background-color: blue;
+/*  margin-top: 20px;*/
 }
 
 .submitButton {
-  width: 100px;
-  height: 30px;
-  background: #fff;
-  padding: 5px 20px;
-  border: 2px solid #6789BB;
-  border-radius: 15px;
-  cursor: pointer;
-  outline: none;
-  transition: all 250ms;
-
-  color: #6789BB;
-  letter-spacing: 1px;
-  font-size: 17px;
-  font-weight: bold;
-  font-family: 'Noto Sans', sans-serif;
-  transition: all 250ms;
-
-}
-
-.submitButton:hover {
-  background: #6789BB;
-  color: #fff;
-  font-size: 18px;
-}
-
-.clear {
-  width: 100px;
-  height: 30px;
-  background: #fff;
-  padding: 5px 20px;
-  border: 2px solid #6789BB;
-  border-radius: 15px;
-  cursor: pointer;
-  outline: none;
-  transition: all 250ms;
-
-  color: #6789BB;
-  letter-spacing: 1px;
-  font-size: 17px;
-  font-weight: bold;
-  font-family: 'Noto Sans', sans-serif;
-  transition: all 250ms;
-
-}
-
-.clear:hover {
-  background: #6789BB;
-  color: #fff;
-  font-size: 18px;
+  background-color: green;
 }
 
 h5 {
@@ -210,7 +160,6 @@ h5 {
 
 p {
   color: white;
-  margin-top: 5px;
 }
 
 .table {
