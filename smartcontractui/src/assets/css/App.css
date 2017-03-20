@@ -1,27 +1,27 @@
 .App {
   text-align: left;
+  font-family: 'Montserrat', sans-serif;
 }
 
-/*@font-face {
-    font-family: 'customfont';
-    src: url('/Users/gillianchu/Desktop/BlockchainExplore/ethereum/smartcontractui/src/assets/css/customfont.ttf') format('truetype');
-}*/
+@font-face {
+    font-family: 'Montserrat', sans-serif;
+}
 
 .App-logo {
 /*  animation: App-logo-spin infinite 20s linear;
-*/  
+*/
   height: 30px;
   margin-top: 15px;
   margin-left: 10px;
+
 }
 
 .App-header {
-  background-color: gray;
-  opacity: 0.7;
+  background-color: #647EA5;
   height: 60px;
   padding: 5px;
   color: #0B0B85;
-  font-family: 'arial';
+  font-family: 'Montserrat', sans-serif;
 }
 
 td {
@@ -33,28 +33,31 @@ td {
   height: 150px;
   padding: 20px;
   color: white;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .App-intro {
   font-size: large;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .Aligner {
   display: flex;
+  font-family: 'Montserrat', sans-serif;
   justify-content: center;
   flex-direction: row
 }
 
 .left {
   width: 50%;
-  height: 100%;
+  height: 50%%;
   text-align: center;
   margin-left: auto;
 }
 
 .formLeft {
   width: 40%;
-  height: 70%;
+  height: 39%;
   position: absolute;
   left: 25%;
   top: 25%;
@@ -97,12 +100,16 @@ td {
 
 body {
   background-color: #7a9aca;
+  padding-bottom: 80px;
+  font-family: 'Montserrat', sans-serif;
+
 }
 
 form {
     border: 3px solid #ccc;
     padding: 0 20px 25px 20px;
     border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 input[type=checkbox],
@@ -144,13 +151,66 @@ input[type=submit],
   background-color: #7a9aca;
 }
 
-.inputField1 {
-  background-color: blue;
-/*  margin-top: 20px;*/
+.container:hover {
+  background-color: #6789BB;
+}
+
+.inputField {
+  padding: 10px;
+  border: none;
+  border-bottom: solid 2px #c9c9c9;
+  transition: border 0.3s;
 }
 
 .submitButton {
-  background-color: green;
+  width: 100px;
+  height: 30px;
+  background: #fff;
+  padding: 5px 20px;
+  border: 2px solid #6789BB;
+  border-radius: 15px;
+  cursor: pointer;
+  outline: none;
+  transition: all 250ms;
+
+  color: #6789BB;
+  letter-spacing: 1px;
+  font-size: 17px;
+  font-weight: bold;
+  font-family: 'Noto Sans', sans-serif;
+  transition: all 250ms;
+
+}
+
+.submitButton:hover {
+  background: #6789BB;
+  color: #fff;
+  font-size: 18px;
+}
+
+.clear {
+  width: 100px;
+  height: 30px;
+  background: #fff;
+  padding: 5px 20px;
+  border: 2px solid #6789BB;
+  border-radius: 15px;
+  cursor: pointer;
+  outline: none;
+  transition: all 250ms;
+
+  color: #6789BB;
+  letter-spacing: 1px;
+  font-size: 17px;
+  font-weight: bold;
+  font-family: 'Noto Sans', sans-serif;
+  transition: all 250ms;
+}
+
+.clear:hover {
+  background: #6789BB;
+  color: #fff;
+  font-size: 18px;
 }
 
 h5 {
@@ -160,8 +220,13 @@ h5 {
 
 p {
   color: white;
+  margin-top: 5px;
 }
 
 .table {
   color: white;
+}
+
+.table:hover {
+  background-color: #6789BB;
 }
