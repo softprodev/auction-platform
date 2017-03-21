@@ -4,7 +4,7 @@ import Web3 from 'web3';
 
 
 
-class FormContainer extends Component {
+class BiddingForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
