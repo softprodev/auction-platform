@@ -14,7 +14,7 @@ class BidTable extends Component {
     }
   }
   componentWillMount() {
-    var data = smartContract.getBids(this.props.getContractID);
+    var data = smartContract.getBids(0);
     this.setState({
       contractId: String(data[0]).split(','),
       suppliers: String(data[1]).split(','),
