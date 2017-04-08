@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import _ from 'lodash';
 import '../assets/css/App.css';
 import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
-import BidRow from '../components/BidRow';
 
 class BidTable extends Component {
 	constructor(props) {
@@ -11,10 +10,9 @@ class BidTable extends Component {
         contractId: "",
         suppliers: "",
         prices: "",
-        timesToComplete: ""
-    };
+        timesToComplete: "",
+    }
   }
-
   componentWillMount() {
     var data = smartContract.getBids(this.props.getContractID);
     this.setState({
@@ -22,26 +20,23 @@ class BidTable extends Component {
       suppliers: String(data[1]).split(','),
       prices: String(data[2]).split(','),
       timesToComplete: String(data[3]).split(',')
+
     })
   }
 
-	rows() {
-		var TableRows = []
+  render() {
+    var TableRows = []
 
     _.each(this.state.contractId, (value, index) => {
-			var input = {
-				contractId: ETHEREUM_CLIENT.toDecimal(this.state.contractId[index]),
-        suppliers: ETHEREUM_CLIENT.toAscii(this.state.suppliers[index]),
-        prices: ETHEREUM_CLIENT.toDecimal(this.state.prices[index]),
-        timesToComplete: ETHEREUM_CLIENT.toDecimal(this.state.timesToComplete[index])
-			};
-			console.log(input);
-			return <BidRow contractId={input.contractId} suppliers={input.contractId} prices={input.prices} timesToComplete={input.timesToComplete} />
-    });
-	}
-
-  render() {
-
+      TableRows.push(
+        <tr>
+          <td>{ETHEREUM_CLIENT.toDecimal(this.state.contractId[index])}</td>
+          <td>{ETHEREUM_CLIENT.toAscii(this.state.suppliers[index])}</td>
+          <td>{ETHEREUM_CLIENT.toDecimal(this.state.prices[index])}</td>
+          <td>{ETHEREUM_CLIENT.toDecimal(this.state.timesToComplete[index])}</td>
+        </tr>
+        )
+    })
 	    return (
 	    	<table cellSpacing="10" cellPadding="10">
 		        <thead>
@@ -53,7 +48,7 @@ class BidTable extends Component {
 		          </tr>
 		        </thead>
 		        <tbody>
-							{this.rows()}
+		          {TableRows}
 		        </tbody>
 		     </table>
 	    );
