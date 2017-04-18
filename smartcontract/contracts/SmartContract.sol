@@ -16,7 +16,8 @@ contract SmartContract {
         uint quantity;
         uint targetPrice;
         uint targetTime;
-        bytes32 ef1;
+        bytes32[] ef1;
+        bytes32 extra;
         //bytes32 supplier;
         /*Date date;*/
     }
@@ -40,7 +41,7 @@ contract SmartContract {
         newContract.targetTime = _targetTime;
 
         bytes32 extraField1 = "";
-        newContract.ef1 = extraField1;
+        newContract.extra = extraField1;
         /*_date.day = _day;
         _date.month = _month;
         _date.year = _year;*/
@@ -55,8 +56,16 @@ contract SmartContract {
       if (_cid > contracts.length) {
         throw;
       }
-      contracts[_cid].ef1 = _extraField;
+      bytes32 additional = "Additional Info";
+      contracts[_cid].extra = additional;
+      contracts[_cid].ef1.push(_extraField);
       return true;
+    }
+    function getFieldByContractID(uint _cid) constant returns (bytes32[]) {
+      if (_cid > contracts.length) {
+        throw;
+      }
+      return contracts[_cid].ef1;
     }
 
     function setBidTableContractId(uint _cid) returns (bool success) {
@@ -85,6 +94,7 @@ contract SmartContract {
         uint[] memory targetPrice = new uint[](length);
         uint[] memory targetTime = new uint[](length);
         bytes32[] memory extraField1 = new bytes32[](length);
+        /*bytes32[][] memory additionalInfo = new bytes32[][](length);*/
         //bytes32[] memory supplier = new bytes32[](length);
         /*Date[] memory date = new Date[](length);*/
         for (uint i = 0; i < contracts.length; i++) {
@@ -95,7 +105,11 @@ contract SmartContract {
             qty[i] = currentContract.quantity;
             targetPrice[i] = currentContract.targetPrice;
             targetTime[i] = currentContract.targetTime;
-            extraField1[i] = currentContract.ef1;
+            extraField1[i] = currentContract.extra;
+
+            /*for (uint j = 0; j < currentContract.ef1.length; j++) {
+              additionalInfo[i][j] = currentContract.ef1[j];
+            }*/
             //supplier[i] = currentContract.supplier;
             /*date[i] = currentContract.date;*/
         }
