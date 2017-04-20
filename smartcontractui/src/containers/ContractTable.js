@@ -18,7 +18,6 @@ class ContractTable extends Component {
         tPrice: "",
         tTime: "",
         ef1: "",
-        extra: "",
         interval : 0
     }
   }
@@ -30,28 +29,27 @@ class ContractTable extends Component {
       qty: String(data[2]).split(','),
       tPrice: String(data[3]).split(','),
       tTime: String(data[4]).split(','),
-      extra: String(data[5]).split(',')
+      ef1: String(data[5]).split(',')
     })
   }
 
   componentDidMount(){
     setInterval(function() {
         var data = smartContract.getContracts()
-        var info = smartContract.getFieldByContractID(0)
         this.setState({
           contractId: String(data[0]).split(','),
           asset: String(data[1]).split(','),
           qty: String(data[2]).split(','),
           tPrice: String(data[3]).split(','),
           tTime: String(data[4]).split(','),
-          extra: String(data[5]).split(','),
-          ef1: String(info).split(','),
+          ef1: String(data[5]).split(','),
           interval: this.state.interval + 1
         })
-        console.log(ETHEREUM_CLIENT.toAscii(this.state.ef1[0]))
         this.render()
     }.bind(this), 5000);
   }
+
+
 
   render() {
     var TableRows = []
@@ -63,7 +61,7 @@ class ContractTable extends Component {
           qty: ETHEREUM_CLIENT.toDecimal(this.state.qty[index]),
           price: ETHEREUM_CLIENT.toDecimal(this.state.tPrice[index]),
           time : ETHEREUM_CLIENT.toDecimal(this.state.tTime[index]),
-          extra : ETHEREUM_CLIENT.toAscii(this.state.extra[index])
+          ef1 : ETHEREUM_CLIENT.toAscii(this.state.ef1[index])
       }
         );
     });
@@ -85,24 +83,12 @@ class ContractTable extends Component {
     accessor: 'time' // String-based value accessors!
     },{
     header: 'Additional Field',
-    accessor: 'extra' // String-based value accessors!
+    accessor: 'ef1' // String-based value accessors!
   }];
       return (
         <div>
          <h2 className="bloo">Active Contracts</h2>
-         <ReactTable
-           data={TableRows}
-           columns={columns}
-           defaultPageSize={5}
-           SubComponent={(row) => {
-             return (
-                <div className="bloo">
-                  Additional Field: {ETHEREUM_CLIENT.toAscii(this.state.ef1[0])}
-                  <br></br>
-                  Additional Field: {ETHEREUM_CLIENT.toAscii(this.state.ef1[1])}
-                </div>
-              )
-            }}/>
+         <ReactTable data={TableRows} columns={columns} defaultPageSize={5}/>
          <ContractModal/>
          <AddFieldModal/>
        </div>
