@@ -20,7 +20,6 @@ class BidTable extends Component {
   }
   componentWillMount() {
     var data = smartContract.getBids();
-		console.log("here");
     this.setState({
       contractId: String(data[0]).split(','),
       suppliers: String(data[1]).split(','),
@@ -74,8 +73,8 @@ class BidTable extends Component {
 				<div>
 					<h2 className="bloo">Bids</h2>
           <ReactTable data={TableRows} columns={columns} defaultPageSize={5}/>
-					<BidModal/>
 					<GetContractBidsModal/>
+					<BidModal/>
 				</div>
       );
   }
