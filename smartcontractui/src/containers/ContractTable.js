@@ -1,74 +1,73 @@
 import React, {Component} from 'react';
 import _ from 'lodash';
 import '../assets/css/App.css';
-import {ETHEREUM_CLIENT, } from '../components/EthereumSetup';
+import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import ContractModal from './ContractModal';
-import EditContractModal from './EditContractModal';
-// import AddFieldModal from './AddFieldModal';
-import CloseContractModal from './CloseContractModal';
-import {client} from '../components/Requests';
+import AddFieldModal from './AddFieldModal';
 
 
 class ContractTable extends Component {
   constructor(props) {
     super(props)
     this.state = {
-        TableRows: [],
-        ef1: [],
-        extra: [],
+        contractId: "",
+        asset: "",
+        qty: "",
+        tPrice: "",
+        tTime: "",
+        ef1: "",
         interval : 0
-    };
-    this.handleRefresh = this.handleRefresh.bind(this);
+    }
   }
-
-  handleRefresh() {
-    var self = this;
-    var TableRows = [];
-    client.get('/contracts/', function(err, res, body) {
-      if (err == null){
-        for(var key in body) {
-          TableRows.push ({
-            cId: body[key]['cId'],
-            asset: body[key]['asset'],
-            qty: body[key]['qty'],
-            time: body[key]['time'],
-            price: body[key]['price'],
-            date: Date(key['date']).toString(),
-						extra: body[key]['price']
-          });
-        }
-        self.setState({TableRows : TableRows});
-      }
-    });
-    this.render();
-  }
-
   componentWillMount() {
-    var self = this;
-    var TableRows = [];
-    client.get('/contracts/', function(err, res, body) {
-      if (err == null){
-        for(var key in body) {
-          TableRows.push ({
-            cId: body[key]['cId'],
-            asset: body[key]['asset'],
-            qty: body[key]['qty'],
-            time: body[key]['time'],
-            price: body[key]['price'],
-            date: Date(key['date']).toString(),
-						extra: body[key]['price']
-          });
-        }
-        self.setState({TableRows : TableRows});
-      }
-    });
+    var data = smartContract.getContracts()
+    this.setState({
+      contractId: String(data[0]).split(','),
+      asset: String(data[1]).split(','),
+      qty: String(data[2]).split(','),
+      tPrice: String(data[3]).split(','),
+      tTime: String(data[4]).split(','),
+      ef1: String(data[5]).split(',')
+    })
   }
+
+  componentDidMount(){
+    setInterval(function() {
+        var data = smartContract.getContracts()
+        this.setState({
+          contractId: String(data[0]).split(','),
+          asset: String(data[1]).split(','),
+          qty: String(data[2]).split(','),
+          tPrice: String(data[3]).split(','),
+          tTime: String(data[4]).split(','),
+          ef1: String(data[5]).split(','),
+          interval: this.state.interval + 1
+        })
+        this.render()
+    }.bind(this), 5000);
+  }
+
+
 
   render() {
+    var TableRows = []
+
+    _.each(this.state.contractId, (value, index) => {
+      TableRows.push( {
+          cId: ETHEREUM_CLIENT.toDecimal(this.state.contractId[index]),
+          asset: ETHEREUM_CLIENT.toAscii(this.state.asset[index]),
+          qty: ETHEREUM_CLIENT.toDecimal(this.state.qty[index]),
+          price: ETHEREUM_CLIENT.toDecimal(this.state.tPrice[index]),
+          time : ETHEREUM_CLIENT.toDecimal(this.state.tTime[index]),
+          ef1 : ETHEREUM_CLIENT.toAscii(this.state.ef1[index])
+      }
+        );
+    });
+
     const columns = [{
-    header: 'Id',
+    header: 'Contract Id',
     accessor: 'cId' // String-based value accessors!
     },{
     header: 'Asset',
@@ -82,31 +81,16 @@ class ContractTable extends Component {
     },{
     header: 'Time to Complete',
     accessor: 'time' // String-based value accessors!
-  },{
-    header: 'Date',
-    accessor: 'date'
-  }/*,{
+    },{
     header: 'Additional Field',
-    accessor: 'extra' // String-based value accessors!
-  }*/];
+    accessor: 'ef1' // String-based value accessors!
+  }];
       return (
         <div>
          <h2 className="bloo">Active Contracts</h2>
-         <ReactTable
-           data={this.state.TableRows}
-           columns={columns}
-           defaultPageSize={5}
-           SubComponent={(row) => {
-             return (
-                <div className="bloo">
-                  Additional Field: {ETHEREUM_CLIENT.toAscii(this.state.ef1[0])}
-                </div>
-              )
-            }}/>
-        <button className="modalDone" onClick={this.handleRefresh}>Refresh Data</button>
-         <CloseContractModal />
-         <EditContractModal/>
+         <ReactTable data={TableRows} columns={columns} defaultPageSize={5}/>
          <ContractModal/>
+         <AddFieldModal/>
        </div>
       );
   }

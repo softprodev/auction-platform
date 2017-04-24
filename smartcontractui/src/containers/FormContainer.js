@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import SingleInput from '../components/SingleInput';
 import '../assets/css/App.css';
-import {client} from '../components/Requests';
+
 // import ContractTable from './ContractTable';
-//import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
+import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 import Select from 'react-select';
 // Be sure to include styles at some point, probably during your bootstrapping
 import 'react-select/dist/react-select.css';
@@ -13,24 +13,24 @@ class FormContainer extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			asset : '',
-			time : '',
-			price : '',
-			qty : '',
-			extra : '',
+			thing1 : '',
+			thing2 : '',
+			thing3 : '',
+			thing4 : '',
+			thing5 : '',
 			selection1 : 'asset',
 			selection2 : 'quantity',
 			selection3 : 'price',
 			selection4 : 'time',
-			selection5 : 'extra',
+			selection5 : 'extraField1',
 		};
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 		this.handleClearForm = this.handleClearForm.bind(this);
-		this.handleAsset = this.handleAsset.bind(this);
-		this.handleTime = this.handleTime.bind(this);
-		this.handleprice = this.handleprice.bind(this);
-		this.handleQty = this.handleQty.bind(this);
-		this.handleExtra = this.handleExtra.bind(this);
+		this.handleThing1 = this.handleThing1.bind(this);
+		this.handleThing2 = this.handleThing2.bind(this);
+		this.handleThing3 = this.handleThing3.bind(this);
+		this.handleThing4 = this.handleThing4.bind(this);
+		this.handleThing5 = this.handleThing5.bind(this);
 		this.handleSelection1 = this.handleSelection1.bind(this);
 		this.handleSelection2 = this.handleSelection2.bind(this);
 		this.handleSelection3 = this.handleSelection3.bind(this);
@@ -58,35 +58,35 @@ class FormContainer extends Component {
 		this.setState({ selection5: val }, () => console.log('name:', this.state.selection5));
 	}
 
-	handleAsset(e) {
-		this.setState({ asset: e.target.value }, () => console.log('name:', this.state.asset));
+	handleThing1(e) {
+		this.setState({ thing1: e.target.value }, () => console.log('name:', this.state.thing1));
 	}
 
-	handleTime(e) {
-		this.setState({ time: e.target.value }, () => console.log('name:', this.state.time));
+	handleThing2(e) {
+		this.setState({ thing2: e.target.value }, () => console.log('name:', this.state.thing2));
 	}
 
-	handleprice(e) {
-		this.setState({ price: e.target.value }, () => console.log('name:', this.state.price));
+	handleThing3(e) {
+		this.setState({ thing3: e.target.value }, () => console.log('name:', this.state.thing3));
 	}
 
-	handleQty(e) {
-		this.setState({ qty: e.target.value }, () => console.log('name:', this.state.qty));
+	handleThing4(e) {
+		this.setState({ thing4: e.target.value }, () => console.log('name:', this.state.thing4));
 	}
 
-	handleExtra(e) {
-		this.setState({ extra: e.target.value }, () => console.log('name:', this.state.extra));
+	handleThing5(e) {
+		this.setState({ thing5: e.target.value }, () => console.log('name:', this.state.thing5));
 	}
 
 
 	handleClearForm(e) {
 		e.preventDefault();
 		this.setState({
-			asset: '',
-			time: '',
-			price: '',
-			qty: '',
-			extra: '',
+			thing1: '',
+			thing2: '',
+			thing3: '',
+			thing4: '',
+			thing5: '',
 			selection1 : '',
 			selection2 : '',
 			selection3 : '',
@@ -97,24 +97,14 @@ class FormContainer extends Component {
 	handleFormSubmit(e) {
 		e.preventDefault();
 		// This is where you would call the web3 functions to make a new contract
-		var formPayload = {
-			asset: this.state.asset,
-			time: this.state.time,
-			price: this.state.price,
-			qty: this.state.qty,
-			date: Date.now(),
-			extra: this.state.extra,
-			cId : -1
-		}
-		client.get('/count', function(err, res, body) {
-      if (err == null){
-					formPayload.cId = body.count;
-				}
-		});
-		//smartContract.addContract.sendTransaction(formPayload.asset, formPayload.time, formPayload.price, formPayload.qty, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
-		client.post('contracts/addContract', formPayload, function(err, res, body) {
-				return console.log(body, res);
-		});
+		const formPayload = {
+			thing1: this.state.thing1,
+			thing2: this.state.thing2,
+			thing3: this.state.thing3,
+			thing4: this.state.thing4,
+		};
+		smartContract.addContract.sendTransaction(formPayload.thing1, formPayload.thing2, formPayload.thing3, formPayload.thing4, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
+
 		console.log('Send this in a POST request:', formPayload);
 		this.handleClearForm(e);
 		//window.location.reload();
@@ -127,7 +117,7 @@ class FormContainer extends Component {
 			{ value: 'quantity', label: 'Quantity' },
 			{ value: 'price', label: 'Price' },
 			{ value: 'time', label: 'Time to Complete' },
-			{ value: 'extra', label: 'Additional Field' }
+			{ value: 'ef1', label: 'Additional Field' }
 		];
 
 		return (
@@ -152,8 +142,8 @@ class FormContainer extends Component {
 						  inputType={'text'}
 							title={'Asset Type		'}
 						  name={'name'}
-						  controlFunc={this.handleAsset}
-						  content={this.state.asset}
+						  controlFunc={this.handleThing1}
+						  content={this.state.thing1}
 						  placeholder={''} />
 						  </td>
 						</tr>
@@ -175,8 +165,8 @@ class FormContainer extends Component {
 						    inputType={'number'}
 						    title={'Quantity   '}
 						    name={'name'}
-						    controlFunc={this.handleTime}
-						    content={this.state.time}
+						    controlFunc={this.handleThing2}
+						    content={this.state.thing2}
 						    placeholder={''} />
 						  </td>
 						</tr>
@@ -199,8 +189,8 @@ class FormContainer extends Component {
 						    inputType={'number'}
 						    title={'Target Price   '}
 						    name={'name'}
-						    controlFunc={this.handleprice}
-						    content={this.state.price}
+						    controlFunc={this.handleThing3}
+						    content={this.state.thing3}
 						    placeholder={''} />
 						  </td>
 						</tr>
@@ -221,31 +211,9 @@ class FormContainer extends Component {
 						    inputType={'number'}
 								title={'Target Time   '}
 						    name={'name'}
-						    controlFunc={this.handleQty}
-						    content={this.state.qty}
+						    controlFunc={this.handleThing4}
+						    content={this.state.thing4}
 						    placeholder={''} />
-						  </td>
-						</tr>
-
-						<tr>
-							<td style={{margin : 10, width: 250}}><Select
- 									 autofocus
- 									 clearable={false}
- 									 name="form-field-name"
- 									 value={this.state.selection5}
- 									 options={options}
- 									 onChange={this.handleSelection5}
- 									 autosize={true}
- 													 /></td>
-
-							<td><SingleInput
-						    className="inputfield"
-						    inputType={'text'}
-								title={'Extra Data   '}
-						    name={'name'}
-						    controlFunc={this.handleExtra}
-						    content={this.state.extra}
-						    placeholder={""} />
 						  </td>
 						</tr>
 
