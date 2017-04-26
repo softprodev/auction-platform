@@ -63,10 +63,8 @@ class ContractTable extends Component {
         console.log(e);
     }
 
-
-    handleWinner(e) {
-        smartContract.bid.sendTransaction(
-            this.state.cId,
+    handleWinner() {
+        smartContract.addBid.sendTransaction(this.state.cId,
             this.state.selectedBid.supplier,
             this.state.selectedBid.price,
             this.state.selectedBid.time,
@@ -124,7 +122,7 @@ class ContractTable extends Component {
                         qty: body[key]['qty'],
                         time: body[key]['time'],
                         price: body[key]['price'],
-                        date: Date(key['date']).toString(),
+                        date: body[key]['date'],
                         extra: body[key]['price']
                     });
                 }
