@@ -31,7 +31,3 @@ Refreshes the database once a contract or bid is added or closed.
 Generates a new bid for the given cId. A bid consists of a Supplier, Price, and Time that a bidder is willing to bet.
 ### Closed Contracts Table
 Table of contracts that have been published to the blockchain. Contracts are immutable and clicking on one will reveal all data about the contract as will as the closing buyer.
-
-
-## Credits:
-This smart contract was adapted from a tutorial by [Jordan Leigh](https://www.youtube.com/watch?v=3-XPBtAfcqo&list=PLV1JDFUtrXpGvu8QHL9b78WYNSJsYNZsb&index=2)..
